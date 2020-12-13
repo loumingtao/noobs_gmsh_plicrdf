@@ -1,0 +1,71 @@
+Point(1) = {0, 0, 0, 1.0};
+//+
+Point(2) = {0.3, 0, 0, 1.0};
+//+
+Point(3) = {0.3, 0.2, 0, 1.0};
+//+
+Point(4) = {0, 0.2, 0, 1.0};
+//+
+Point(5) = {0.8, 0, 0, 1.0};
+//+
+Point(6) = {0.8, 0.2, 0, 1.0};
+//+
+Line(1) = {4, 1};
+//+
+Line(2) = {1, 2};
+//+
+Line(3) = {2, 5};
+//+
+Line(4) = {5, 6};
+//+
+Line(5) = {6, 3};
+//+
+Line(6) = {3, 4};
+//+
+Line(7) = {3, 2};
+//+
+Curve Loop(1) = {6, 1, 2, -7};
+//+
+Plane Surface(1) = {1};
+//+
+Curve Loop(2) = {5, 7, 3, 4};
+//+
+Plane Surface(2) = {2};
+//+
+Transfinite Curve {5, 3} = 150 Using Bump 0.2;
+//+
+Transfinite Curve {6, 2} = 90 Using Bump 0.1;
+//+
+Transfinite Curve {1, 7, 4} = 60 Using Bump 0.1;
+//+
+Transfinite Surface {1};
+//+
+Transfinite Surface {2};
+//+
+Recombine Surface {1, 2};
+//+
+
+//+
+Extrude {0, 0, 0.05} {
+  Surface{1}; Surface{2}; Layers{25}; Recombine;
+}
+//+
+Extrude {0, 0, 0.55} {
+  Surface{29}; Surface{51}; Layers{100}; Recombine;
+}
+//+
+Physical Surface("atmosphere") = {73};
+//+
+Physical Surface("lid") = {95};
+//+
+Physical Surface("front") = {68, 90, 24, 46};
+//+
+Physical Surface("back") = {82, 38, 16, 60};
+//+
+Physical Surface("leftwall") = {64, 20};
+//+
+Physical Surface("rightwall") = {94, 50};
+//+
+Physical Surface("bottom") = {1, 2};
+//+
+Physical Volume("air") = {3, 1, 2, 4};
